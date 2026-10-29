@@ -52,11 +52,11 @@ The real examples in the top row are **unpaired references**. The generated rows
 For grayscale input `x ∈ R^(1×128×128)`, the hierarchical model uses:
 
 $$
-p_\theta(x,z_g,z_\ell)=p(z_g)\,p_\theta(z_\ell\mid z_g)\,p_\theta(x\mid z_g,z_\ell)
+p_\theta(x,z_g,z_\ell)=p(z_g)p_\theta(z_\ell\mid z_g)p_\theta(x\mid z_g,z_\ell)
 $$
 
 $$
-q_\phi(z_g,z_\ell\mid x)=q_\phi(z_g\mid x)\,q_\phi(z_\ell\mid x,z_g).
+q_\phi(z_g,z_\ell\mid x)=q_\phi(z_g\mid x)q_\phi(z_\ell\mid x,z_g).
 $$
 
 The encoder downsamples `128 → 64 → 32 → 16 → 8`. Its pooled deepest features parameterize the global posterior. A learned map projects `z_g` to `192 × 8 × 8`, then produces the conditional spatial prior at `32 × 32`.
@@ -65,7 +65,7 @@ The spatial posterior predicts corrections to prior parameters:
 
 $$
 \mu_q=\mu_p+\Delta\mu,\qquad
-\log\sigma_q^2=\operatorname{clip}(\log\sigma_p^2+\Delta\log\sigma^2).
+\log\sigma_q^2=\mathrm{clip}(\log\sigma_p^2+\Delta\log\sigma^2).
 $$
 
 The decoder injects the spatial latent at `32 × 32` using a learned projection and bounded gain, before the final two upsampling stages. Residual blocks use GroupNorm and SiLU. **There are no deterministic encoder-to-decoder skip connections:** generating a new image requires only `z_g ~ N(0,I)` and `z_l ~ p(z_l | z_g)`, without an input radiograph or class label.
