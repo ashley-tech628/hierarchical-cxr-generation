@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="740" viewBox="0 0 1280 740" role="img" aria-label="Hierarchical VAE prior and posterior paths">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="none" stroke="#59719a" stroke-width="1.5"/></marker></defs>
+<rect width="1280" height="740" rx="24" fill="#f5f7fc"/>
+<text x="42" y="55" font-family="Segoe UI,Arial,sans-serif" font-size="36" font-weight="700" fill="#13213c">Hierarchical Chest X-ray Generation</text>
+<text x="42" y="90" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="400" fill="#66748b">H3B architecture · independent prior samples and input-conditioned reconstruction</text>
+<text x="42" y="145" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700" fill="#168c87">PRIOR GENERATION  /  NO INPUT IMAGE</text>
+<rect x="42" y="170" width="260" height="120" rx="15" fill="white" stroke="#cbd5e8"/>
+<text x="62" y="205" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="650" fill="#168c87">Global prior</text>
+<text x="62" y="239" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">z_g ~ N(0, I)</text>
+<text x="62" y="266" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">128 dimensions</text>
+<rect x="354" y="170" width="260" height="120" rx="15" fill="white" stroke="#cbd5e8"/>
+<text x="374" y="205" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="650" fill="#168c87">Conditional spatial prior</text>
+<text x="374" y="239" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">p(z_l | z_g)</text>
+<text x="374" y="266" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">8 × 32 × 32 Gaussian</text>
+<rect x="666" y="170" width="260" height="120" rx="15" fill="white" stroke="#cbd5e8"/>
+<text x="686" y="205" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="650" fill="#168c87">Stochastic spatial code</text>
+<text x="686" y="239" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">Sample z_l from the prior</text>
+<text x="686" y="266" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">No encoder features</text>
+<rect x="978" y="170" width="260" height="120" rx="15" fill="white" stroke="#cbd5e8"/>
+<text x="998" y="205" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="650" fill="#168c87">Residual decoder</text>
+<text x="998" y="239" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">Inject local code at 32²</text>
+<text x="998" y="266" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">128 × 128 grayscale</text>
+<path d="M309 230 h34" stroke="#59719a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M621 230 h34" stroke="#59719a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M933 230 h34" stroke="#59719a" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="42" y="355" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700" fill="#345ff4">POSTERIOR RECONSTRUCTION  /  INPUT-CONDITIONED</text>
+<rect x="42" y="380" width="260" height="120" rx="15" fill="white" stroke="#cbd5e8"/>
+<text x="62" y="415" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="650" fill="#345ff4">Input + encoder</text>
+<text x="62" y="449" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">128² → 64² → 32² → 8²</text>
+<text x="62" y="476" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">GroupNorm / SiLU</text>
+<rect x="354" y="380" width="260" height="120" rx="15" fill="white" stroke="#cbd5e8"/>
+<text x="374" y="415" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="650" fill="#345ff4">Global posterior</text>
+<text x="374" y="449" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">q(z_g | x)</text>
+<text x="374" y="476" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">Reparameterized Gaussian</text>
+<rect x="666" y="380" width="260" height="120" rx="15" fill="white" stroke="#cbd5e8"/>
+<text x="686" y="415" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="650" fill="#345ff4">Spatial posterior</text>
+<text x="686" y="449" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">q(z_l | x, z_g)</text>
+<text x="686" y="476" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">Prior + learned correction</text>
+<rect x="978" y="380" width="260" height="120" rx="15" fill="white" stroke="#cbd5e8"/>
+<text x="998" y="415" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="650" fill="#345ff4">Same decoder</text>
+<text x="998" y="449" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">Bounded spatial injection</text>
+<text x="998" y="476" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">No deterministic skips</text>
+<path d="M309 440 h34" stroke="#59719a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M621 440 h34" stroke="#59719a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M933 440 h34" stroke="#59719a" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="42" y="552" width="1196" height="140" rx="18" fill="#13213c"/>
+<text x="65" y="590" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700" fill="#a9c3ff">STRUCTURE-AWARE TRAINING</text>
+<text x="65" y="626" font-family="Segoe UI,Arial,sans-serif" font-size="24" font-weight="400" fill="#ffffff">MSE_sum + 48(1 − SSIM) + 32 Sobel-L1 + β(KL_global + 0.35 KL_local)</text>
+<text x="65" y="661" font-family="Segoe UI,Arial,sans-serif" font-size="20" font-weight="400" fill="#c4d0e6">10-epoch KL warm-up · EMA · validation selection at final KL weight</text>
+</svg>

@@ -1,0 +1,26 @@
+{
+  "algorithm": "sha256",
+  "scripts": [
+    {
+      "file": "code/cxr_h3_research.py",
+      "sha256": "e14ecbae9ced3582ed6a7fd55e9df3f38a3397f24fce0fe095fb53a5be00d297",
+      "original_source_unchanged": true
+    },
+    {
+      "file": "code/cxr_h4b_flow.py",
+      "sha256": "1aef7fb7005d87d2cc33fb560bf105d8ca21865e8d45d3fcafa8b847b8570137",
+      "original_source_unchanged": true
+    },
+    {
+      "file": "code/cxr_h6_adversarial.py",
+      "sha256": "56c43e7901a03367325327f1c66eace6a580b4c271b0463e4be2b3a01be70f67",
+      "original_source_unchanged": true
+    },
+    {
+      "file": "code/cxr_hvae.py",
+      "sha256": "7febb1634d365bed88baa33992413c358618c730dccb45a8034dd9e27f50eaee",
+      "original_source_unchanged": true
+    }
+  ],
+  "original_report_sha256": "7fe313cee4a14da45f8d306ed3de9c2f5988c93df919dc9d7c0aeee22e9b6cf5"
+}

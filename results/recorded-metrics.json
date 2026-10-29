@@ -1,0 +1,25 @@
+{
+  "provenance": "Historical values from the supplied ECE285 report and submission README; not recomputed during publication.",
+  "split": "class-stratified image-level validation from the original train directory",
+  "seed": 2026,
+  "train_images": 4694,
+  "validation_images": 522,
+  "test_evaluated": false,
+  "reconstruction": [
+    {"model": "H1", "pixel_mse": 0.003621, "ssim": 0.68977, "approximate": false},
+    {"model": "H2", "pixel_mse": 0.00352, "ssim": 0.6971, "approximate": true},
+    {"model": "H3B", "pixel_mse": 0.00247, "ssim": 0.7542, "approximate": false}
+  ],
+  "matched_generation": {
+    "seed": 2026,
+    "n_real": 522,
+    "n_generated": 522,
+    "rows": [
+      {"model": "H3B", "fid": 216.52, "kid_mean": 0.2725, "inception_score": 2.287},
+      {"model": "H6A epoch 15", "fid": 210.14, "kid_mean": 0.2612, "inception_score": 2.321}
+    ]
+  },
+  "history": {"recorded_epochs": 36, "training_epochs": 50, "missing_epochs": [7,8,9,10,29,30,31,32,33,43,44,45,46,47], "interpolated": false},
+  "checkpoints_included": false,
+  "raw_evaluation_logs_included": false
+}

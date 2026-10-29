@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If referencing this implementation or course report, cite this repository and distinguish it from the foundational papers."
+title: "Hierarchical Chest X-ray Generation"
+type: software
+authors:
+  - family-names: Liu
+    given-names: Xinying (Ashley)
+repository-code: "https://github.com/ashley-tech628/hierarchical-cxr-generation"
+abstract: "ECE 285 course research implementation of a hierarchical variational autoencoder, structure-aware reconstruction, and decoder-only adversarial refinement."
+keywords:
+  - hierarchical variational autoencoder
+  - generative modeling
+  - spatial latent variables
+  - adversarial refinement
+  - chest radiographs

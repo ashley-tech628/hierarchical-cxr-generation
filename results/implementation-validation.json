@@ -1,0 +1,32 @@
+{
+  "validation_date": "2026-10-29",
+  "platform": "Windows",
+  "python": "3.12.14",
+  "device": "cpu",
+  "packages": {
+    "torch": "2.14.1+cpu",
+    "torchvision": "0.29.1",
+    "numpy": "2.5.3",
+    "Pillow": "13.0.0",
+    "pytorch-msssim": "1.0.0",
+    "matplotlib": "3.11.2"
+  },
+  "unit_test_command": "python -m unittest discover -s tests -v",
+  "unit_tests_passed": 6,
+  "original_h6a_synthetic_unit_check": "passed",
+  "checks": [
+    "hierarchical shapes and hybrid gradients",
+    "encoder-free prior generation",
+    "closed-form Gaussian KL cases",
+    "frozen encoder/prior invariance after decoder optimizer step",
+    "seeded generation after weight serialization",
+    "repeatable, disjoint, class-stratified image split"
+  ],
+  "original_experiment_scripts_unchanged": true,
+  "original_report_pages": 2,
+  "local_document_links": "passed",
+  "training_rerun": false,
+  "fid_kid_is_recomputed": false,
+  "clinical_or_held_out_test_validation": false,
+  "scope": "Synthetic/random-weight implementation checks only. Historical image-quality metrics are report-backed and were not independently reproduced."
+}
