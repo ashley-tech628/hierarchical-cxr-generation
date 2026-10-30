@@ -4,7 +4,7 @@
 
 This release preserves the original course submission's report, scripts, figures, and metric summaries. Training and image-quality evaluation were conducted before repository preparation. The original trained weights and full notebook/ZIP logs were not supplied in this directory.
 
-`results/recorded-metrics.json` transcribes the supplied numerical summaries. It is not an output from a new evaluation. The technical report rounds H1/H2/H3B reconstruction values and H3B/H6A generation values; the original submission README supplies additional reconstruction precision.
+`results/recorded-metrics.json` transcribes Tables 1 and 2 of the current user-supplied `ECE_285_HW1.pdf`. It is not an output from a new evaluation. The current report adds H3A/H3C and specifies H3B per-pixel MSE as 0.002467. The earlier report and LaTeX source remain as historical submission artifacts.
 
 ## Data partition
 
@@ -17,7 +17,7 @@ This release preserves the original course submission's report, scripts, figures
 
 ## Reconstruction protocol
 
-Validation uses deterministic posterior means. Pixel MSE and SSIM assess agreement with the corresponding input image. H1→H2 adds structure terms; H2→H3B changes local-grid size, prior/posterior modules, local injection, and the local KL multiplier. H3A would be the closer grid-size control, but its quantitative result is not supplied. Do not attribute the entire H1→H3B improvement to any single change.
+Validation uses deterministic posterior means. Pixel MSE and SSIM assess agreement with the corresponding input image. H1→H2 adds structure terms; H2→H3B changes local-grid size, prior/posterior modules, local injection, and the local KL multiplier. The current report includes H3A (MSE 0.003778 / SSIM 0.6926) and H3C (0.002469 / 0.7547). H3A and H3B share the 32² architecture with different local KL weights; no repeated-seed uncertainty is supplied. Do not attribute the entire H1→H3B improvement to any single change.
 
 ## Matched generation protocol
 
@@ -38,7 +38,7 @@ The authoritative comparison is the paired `evaluate` routine in `cxr_h6_adversa
 
 The paired routine restores both checkpoints and checks the source-H3B checksum. Its two latent RNG streams avoid interleaving global/local draws in a single stream. Batch size, device, library versions, preprocessing, and evaluation implementation should still be held fixed and recorded when repeating comparisons.
 
-The standalone H3B evaluator has a different default sample count, a single latent RNG stream, and no KID calculation. It should not be mixed with H6A values as a paired ablation. Use the H6A evaluator to score both models together.
+The report explicitly excludes a separate notebook FID of 213.15 from the matched table. The standalone H3B evaluator has a different default sample count, a single latent RNG stream, and no KID calculation. It should not be mixed with H6A values as a paired ablation. Use the H6A evaluator to score both models together.
 
 ## History coverage
 

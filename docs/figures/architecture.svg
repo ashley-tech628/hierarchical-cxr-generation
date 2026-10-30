@@ -1,50 +1,97 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="740" viewBox="0 0 1280 740" role="img" aria-label="Hierarchical VAE prior and posterior paths">
-<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="none" stroke="#59719a" stroke-width="1.5"/></marker></defs>
-<rect width="1280" height="740" rx="24" fill="#f5f7fc"/>
-<text x="42" y="55" font-family="Segoe UI,Arial,sans-serif" font-size="36" font-weight="700" fill="#13213c">Hierarchical Chest X-ray Generation</text>
-<text x="42" y="90" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="400" fill="#66748b">H3B architecture · independent prior samples and input-conditioned reconstruction</text>
-<text x="42" y="145" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700" fill="#168c87">PRIOR GENERATION  /  NO INPUT IMAGE</text>
-<rect x="42" y="170" width="260" height="120" rx="15" fill="white" stroke="#cbd5e8"/>
-<text x="62" y="205" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="650" fill="#168c87">Global prior</text>
-<text x="62" y="239" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">z_g ~ N(0, I)</text>
-<text x="62" y="266" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">128 dimensions</text>
-<rect x="354" y="170" width="260" height="120" rx="15" fill="white" stroke="#cbd5e8"/>
-<text x="374" y="205" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="650" fill="#168c87">Conditional spatial prior</text>
-<text x="374" y="239" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">p(z_l | z_g)</text>
-<text x="374" y="266" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">8 × 32 × 32 Gaussian</text>
-<rect x="666" y="170" width="260" height="120" rx="15" fill="white" stroke="#cbd5e8"/>
-<text x="686" y="205" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="650" fill="#168c87">Stochastic spatial code</text>
-<text x="686" y="239" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">Sample z_l from the prior</text>
-<text x="686" y="266" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">No encoder features</text>
-<rect x="978" y="170" width="260" height="120" rx="15" fill="white" stroke="#cbd5e8"/>
-<text x="998" y="205" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="650" fill="#168c87">Residual decoder</text>
-<text x="998" y="239" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">Inject local code at 32²</text>
-<text x="998" y="266" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">128 × 128 grayscale</text>
-<path d="M309 230 h34" stroke="#59719a" stroke-width="2" marker-end="url(#arrow)"/>
-<path d="M621 230 h34" stroke="#59719a" stroke-width="2" marker-end="url(#arrow)"/>
-<path d="M933 230 h34" stroke="#59719a" stroke-width="2" marker-end="url(#arrow)"/>
-<text x="42" y="355" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700" fill="#345ff4">POSTERIOR RECONSTRUCTION  /  INPUT-CONDITIONED</text>
-<rect x="42" y="380" width="260" height="120" rx="15" fill="white" stroke="#cbd5e8"/>
-<text x="62" y="415" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="650" fill="#345ff4">Input + encoder</text>
-<text x="62" y="449" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">128² → 64² → 32² → 8²</text>
-<text x="62" y="476" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">GroupNorm / SiLU</text>
-<rect x="354" y="380" width="260" height="120" rx="15" fill="white" stroke="#cbd5e8"/>
-<text x="374" y="415" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="650" fill="#345ff4">Global posterior</text>
-<text x="374" y="449" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">q(z_g | x)</text>
-<text x="374" y="476" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">Reparameterized Gaussian</text>
-<rect x="666" y="380" width="260" height="120" rx="15" fill="white" stroke="#cbd5e8"/>
-<text x="686" y="415" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="650" fill="#345ff4">Spatial posterior</text>
-<text x="686" y="449" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">q(z_l | x, z_g)</text>
-<text x="686" y="476" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">Prior + learned correction</text>
-<rect x="978" y="380" width="260" height="120" rx="15" fill="white" stroke="#cbd5e8"/>
-<text x="998" y="415" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="650" fill="#345ff4">Same decoder</text>
-<text x="998" y="449" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">Bounded spatial injection</text>
-<text x="998" y="476" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="400" fill="#13213c">No deterministic skips</text>
-<path d="M309 440 h34" stroke="#59719a" stroke-width="2" marker-end="url(#arrow)"/>
-<path d="M621 440 h34" stroke="#59719a" stroke-width="2" marker-end="url(#arrow)"/>
-<path d="M933 440 h34" stroke="#59719a" stroke-width="2" marker-end="url(#arrow)"/>
-<rect x="42" y="552" width="1196" height="140" rx="18" fill="#13213c"/>
-<text x="65" y="590" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700" fill="#a9c3ff">STRUCTURE-AWARE TRAINING</text>
-<text x="65" y="626" font-family="Segoe UI,Arial,sans-serif" font-size="24" font-weight="400" fill="#ffffff">MSE_sum + 48(1 − SSIM) + 32 Sobel-L1 + β(KL_global + 0.35 KL_local)</text>
-<text x="65" y="661" font-family="Segoe UI,Arial,sans-serif" font-size="20" font-weight="400" fill="#c4d0e6">10-epoch KL warm-up · EMA · validation selection at final KL weight</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1190" viewBox="0 0 1800 1190" role="img" aria-label="H3B · Conditional hierarchical variational autoencoder">
+<defs>
+<marker id="blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#3156a6"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#287b73"/></marker>
+<marker id="orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#a96026"/></marker>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#202a38"/></marker>
+</defs>
+<rect width="1800" height="1190" fill="white"/>
+<text x="55" y="60" font-family="Arial,Helvetica,sans-serif" font-size="34" fill="#202a38" font-weight="700" text-anchor="start">H3B · Conditional hierarchical variational autoencoder</text>
+<text x="55" y="99" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#5f6b7a" font-weight="400" text-anchor="start">128 × 128 grayscale input · global Gaussian + conditional spatial Gaussian · no deterministic encoder–decoder skips</text>
+<text x="55" y="152" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#3156a6" font-weight="700" text-anchor="start">AMORTIZED INFERENCE</text>
+<rect x="55" y="185" width="190" height="135" rx="8" fill="#f7f9fc" stroke="#202a38" stroke-width="1.6"/>
+<text x="75" y="221" font-family="Arial,Helvetica,sans-serif" font-size="25" fill="#202a38" font-weight="700" text-anchor="start">Input x</text>
+<text x="75" y="258" font-family="Arial,Helvetica,sans-serif" font-size="20.979020979020977" fill="#202a38" font-weight="400" text-anchor="start">1 × 128 × 128</text>
+<text x="75" y="287" font-family="Arial,Helvetica,sans-serif" font-size="17.045454545454543" fill="#202a38" font-weight="400" text-anchor="start">Grayscale [0, 1]</text>
+<rect x="280" y="185" width="290" height="170" rx="8" fill="#f2f5fb" stroke="#3156a6" stroke-width="1.6"/>
+<text x="300" y="221" font-family="Arial,Helvetica,sans-serif" font-size="25" fill="#3156a6" font-weight="700" text-anchor="start">Residual encoder</text>
+<text x="300" y="258" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#202a38" font-weight="400" text-anchor="start">48@64² → 80@32²</text>
+<text x="300" y="287" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#202a38" font-weight="400" text-anchor="start">→ 128@16² → 192@8²</text>
+<text x="300" y="338" font-family="Arial,Helvetica,sans-serif" font-size="14.740566037735848" fill="#5f6b7a" font-weight="400" text-anchor="start">GroupNorm · SiLU · frozen in H6A</text>
+<rect x="625" y="185" width="260" height="170" rx="8" fill="#f2f5fb" stroke="#3156a6" stroke-width="1.6"/>
+<text x="645" y="221" font-family="Arial,Helvetica,sans-serif" font-size="24.999999999999996" fill="#3156a6" font-weight="700" text-anchor="start">Global posterior</text>
+<text x="645" y="258" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#202a38" font-weight="400" text-anchor="start">qφ(z_g | x)</text>
+<text x="645" y="287" font-family="Arial,Helvetica,sans-serif" font-size="20.0" fill="#202a38" font-weight="400" text-anchor="start">Pool → μ_g, log σ²_g</text>
+<text x="645" y="338" font-family="Arial,Helvetica,sans-serif" font-size="15.965166908563134" fill="#5f6b7a" font-weight="400" text-anchor="start">128-D · reparameterization</text>
+<rect x="940" y="185" width="170" height="170" rx="8" fill="#f0f7f5" stroke="#287b73" stroke-width="1.6"/>
+<text x="960" y="221" font-family="Arial,Helvetica,sans-serif" font-size="23.636363636363637" fill="#287b73" font-weight="700" text-anchor="start">Global z_g</text>
+<text x="960" y="258" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#202a38" font-weight="400" text-anchor="start">128-D code</text>
+<text x="960" y="287" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#202a38" font-weight="400" text-anchor="start">q(z_g | x)</text>
+<text x="960" y="316" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#202a38" font-weight="400" text-anchor="start">or N(0, I)</text>
+<rect x="1165" y="185" width="230" height="170" rx="8" fill="#f0f7f5" stroke="#287b73" stroke-width="1.6"/>
+<text x="1185" y="221" font-family="Arial,Helvetica,sans-serif" font-size="25" fill="#287b73" font-weight="700" text-anchor="start">Global map</text>
+<text x="1185" y="258" font-family="Arial,Helvetica,sans-serif" font-size="20.320855614973258" fill="#202a38" font-weight="400" text-anchor="start">Linear projection</text>
+<text x="1185" y="287" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#202a38" font-weight="400" text-anchor="start">192 × 8 × 8</text>
+<text x="1185" y="338" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#5f6b7a" font-weight="400" text-anchor="start">Frozen in H6A</text>
+<path d="M245,252 L280,252" fill="none" stroke="#3156a6" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="9 6" marker-end="url(#blue)"/>
+<path d="M570,252 L625,252" fill="none" stroke="#3156a6" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="9 6" marker-end="url(#blue)"/>
+<path d="M885,252 L940,252" fill="none" stroke="#3156a6" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="9 6" marker-end="url(#blue)"/>
+<path d="M1110,252 L1165,252" fill="none" stroke="#287b73" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#teal)"/>
+<text x="748" y="392" font-family="Arial,Helvetica,sans-serif" font-size="21" fill="#287b73" font-weight="400" text-anchor="start">synthesis: z_g ~ N(0, I)</text>
+<path d="M1025,398 L1025,355" fill="none" stroke="#287b73" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#teal)"/>
+<rect x="485" y="470" width="400" height="180" rx="8" fill="#f2f5fb" stroke="#3156a6" stroke-width="1.6"/>
+<text x="505" y="506" font-family="Arial,Helvetica,sans-serif" font-size="25" fill="#3156a6" font-weight="700" text-anchor="start">Spatial posterior</text>
+<text x="505" y="543" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#202a38" font-weight="400" text-anchor="start">qφ(z_ℓ | x, z_g)</text>
+<text x="505" y="572" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#202a38" font-weight="400" text-anchor="start">[f_32, context] → Δμ, Δlog σ²</text>
+<text x="505" y="601" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#202a38" font-weight="400" text-anchor="start">μ_q = μ_p + Δμ</text>
+<text x="505" y="633" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#5f6b7a" font-weight="400" text-anchor="start">80 + 96 channels · frozen in H6A</text>
+<rect x="1050" y="470" width="345" height="180" rx="8" fill="#f0f7f5" stroke="#287b73" stroke-width="1.6"/>
+<text x="1070" y="506" font-family="Arial,Helvetica,sans-serif" font-size="22.18181818181818" fill="#287b73" font-weight="700" text-anchor="start">Conditional spatial prior</text>
+<text x="1070" y="543" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#202a38" font-weight="400" text-anchor="start">pθ(z_ℓ | z_g)</text>
+<text x="1070" y="572" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#202a38" font-weight="400" text-anchor="start">96 × 32 × 32 context</text>
+<text x="1070" y="601" font-family="Arial,Helvetica,sans-serif" font-size="21.328671328671327" fill="#202a38" font-weight="400" text-anchor="start">μ_p, log σ²_p: 8 × 32 × 32</text>
+<text x="1070" y="633" font-family="Arial,Helvetica,sans-serif" font-size="14.386792452830187" fill="#5f6b7a" font-weight="400" text-anchor="start">Upsample + conv/residual · frozen in H6A</text>
+<path d="M425,355 L425,560 L485,560" fill="none" stroke="#3156a6" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="9 6" marker-end="url(#blue)"/>
+<text x="100" y="445" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#3156a6" font-weight="400" text-anchor="start">f_32: 80 × 32 × 32</text>
+<text x="100" y="477" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#5f6b7a" font-weight="400" text-anchor="start">Posterior feature branch</text>
+<path d="M1280,355 L1280,470" fill="none" stroke="#287b73" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#teal)"/>
+<path d="M1050,545 L885,545" fill="none" stroke="#287b73" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#teal)"/>
+<text x="965" y="515" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#287b73" font-weight="400" text-anchor="middle">context +</text>
+<text x="965" y="539" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#287b73" font-weight="400" text-anchor="middle">prior stats</text>
+<rect x="1030" y="735" width="280" height="145" rx="8" fill="#f0f7f5" stroke="#287b73" stroke-width="1.6"/>
+<text x="1050" y="771" font-family="Arial,Helvetica,sans-serif" font-size="25" fill="#287b73" font-weight="700" text-anchor="start">Spatial z_ℓ</text>
+<text x="1050" y="808" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#202a38" font-weight="400" text-anchor="start">8 × 32 × 32</text>
+<text x="1050" y="837" font-family="Arial,Helvetica,sans-serif" font-size="16.16161616161616" fill="#202a38" font-weight="400" text-anchor="start">Gaussian reparameterization</text>
+<path d="M885,603 L945,603 L945,807 L1030,807" fill="none" stroke="#3156a6" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="9 6" marker-end="url(#blue)"/>
+<text x="790" y="717" font-family="Arial,Helvetica,sans-serif" font-size="20" fill="#3156a6" font-weight="400" text-anchor="start">reconstruction</text>
+<path d="M1222,650 L1222,735" fill="none" stroke="#287b73" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#teal)"/>
+<text x="1244" y="700" font-family="Arial,Helvetica,sans-serif" font-size="20" fill="#287b73" font-weight="400" text-anchor="start">synthesis</text>
+<rect x="1450" y="419" width="295" height="633" rx="10" fill="#fffaf5" stroke="#dbc5b2"/>
+<text x="1472" y="456" font-family="Arial,Helvetica,sans-serif" font-size="20" fill="#a96026" font-weight="700" text-anchor="start">RESIDUAL DECODER</text>
+<rect x="1470" y="480" width="255" height="130" rx="8" fill="#fffaf5" stroke="#a96026" stroke-width="1.6"/>
+<text x="1490" y="516" font-family="Arial,Helvetica,sans-serif" font-size="25" fill="#a96026" font-weight="700" text-anchor="start">8² → 16²</text>
+<text x="1490" y="553" font-family="Arial,Helvetica,sans-serif" font-size="21.717171717171716" fill="#202a38" font-weight="400" text-anchor="start">192 → 160 channels</text>
+<text x="1490" y="593" font-family="Arial,Helvetica,sans-serif" font-size="16.90251572327044" fill="#5f6b7a" font-weight="400" text-anchor="start">Decoder trainable in H6A</text>
+<rect x="1470" y="665" width="255" height="150" rx="8" fill="#fffaf5" stroke="#a96026" stroke-width="1.6"/>
+<text x="1490" y="701" font-family="Arial,Helvetica,sans-serif" font-size="25" fill="#a96026" font-weight="700" text-anchor="start">32² injection</text>
+<text x="1490" y="738" font-family="Arial,Helvetica,sans-serif" font-size="21.717171717171716" fill="#202a38" font-weight="400" text-anchor="start">160 → 128 channels</text>
+<text x="1490" y="767" font-family="Arial,Helvetica,sans-serif" font-size="20.574162679425836" fill="#202a38" font-weight="400" text-anchor="start">tanh(a) · Conv(z_ℓ)</text>
+<rect x="1470" y="870" width="255" height="130" rx="8" fill="#fffaf5" stroke="#a96026" stroke-width="1.6"/>
+<text x="1490" y="906" font-family="Arial,Helvetica,sans-serif" font-size="25" fill="#a96026" font-weight="700" text-anchor="start">64² → 128²</text>
+<text x="1490" y="943" font-family="Arial,Helvetica,sans-serif" font-size="20.574162679425836" fill="#202a38" font-weight="400" text-anchor="start">80 → 48 → 1 channel</text>
+<text x="1490" y="972" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#202a38" font-weight="400" text-anchor="start">Sigmoid output x̂</text>
+<path d="M1395,252 L1597,252 L1597,480" fill="none" stroke="#202a38" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ink)"/>
+<path d="M1597,610 L1597,665" fill="none" stroke="#a96026" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#orange)"/>
+<path d="M1310,807 L1390,807 L1390,740 L1470,740" fill="none" stroke="#a96026" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#orange)"/>
+<path d="M1597,815 L1597,870" fill="none" stroke="#a96026" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#orange)"/>
+<circle cx="1280" cy="355" r="5" fill="#287b73"/>
+<rect x="55" y="910" width="870" height="140" rx="8" fill="#f7f9fc" stroke="#202a38" stroke-width="1.6"/>
+<text x="75" y="946" font-family="Arial,Helvetica,sans-serif" font-size="25" fill="#202a38" font-weight="700" text-anchor="start">Hybrid reconstruction–regularization objective</text>
+<text x="75" y="983" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#202a38" font-weight="400" text-anchor="start">MSE_sum + 48(1 − SSIM) + 32 Sobel-L1</text>
+<text x="75" y="1012" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#202a38" font-weight="400" text-anchor="start">+ β_t [KL_global + 0.35 KL_local]</text>
+<text x="55" y="1099" font-family="Arial,Helvetica,sans-serif" font-size="21" fill="#287b73" font-weight="400" text-anchor="start">Solid paths: generative computation</text>
+<path d="M510,1092 L565,1092" fill="none" stroke="#287b73" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#teal)"/>
+<text x="625" y="1099" font-family="Arial,Helvetica,sans-serif" font-size="21" fill="#3156a6" font-weight="400" text-anchor="start">Dashed paths: posterior information</text>
+<path d="M1108,1092 L1163,1092" fill="none" stroke="#3156a6" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="9 6" marker-end="url(#blue)"/>
+<text x="55" y="1142" font-family="Arial,Helvetica,sans-serif" font-size="21" fill="#5f6b7a" font-weight="400" text-anchor="start">H3B trains the full hierarchy. H6A keeps encoder/global-map/prior modules fixed and refines only the decoder.</text>
 </svg>

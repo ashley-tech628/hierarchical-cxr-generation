@@ -22,5 +22,10 @@
       "original_source_unchanged": true
     }
   ],
-  "original_report_sha256": "7fe313cee4a14da45f8d306ed3de9c2f5988c93df919dc9d7c0aeee22e9b6cf5"
+  "original_report_sha256": "7fe313cee4a14da45f8d306ed3de9c2f5988c93df919dc9d7c0aeee22e9b6cf5",
+  "current_report": {
+    "file": "docs/report/ECE_285_HW1.pdf",
+    "sha256": "c1c723c00d56dc6eed382fdb074491b566bdaec6d9e26940e92192e7e2044722",
+    "supplied_by_author": true
+  }
 }

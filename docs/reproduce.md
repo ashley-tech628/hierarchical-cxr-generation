@@ -79,7 +79,7 @@ pdflatex -interaction=nonstopmode HW1_CXR_VAE_Report.tex
 pdflatex -interaction=nonstopmode HW1_CXR_VAE_Report.tex
 ```
 
-The original PDF is included unchanged and has two pages including references. LaTeX is optional for reading it. `tools/build_figures.py` rebuilds the public architecture, result comparison, and observed-history charts from source data without training any neural model.
+The primary `ECE_285_HW1.pdf` is included unchanged: two main-text pages plus a third reference page. The commands above rebuild the earlier submission draft, not the current report; its updated LaTeX source was not supplied. LaTeX is optional for reading either PDF. `tools/build_figures.py` rebuilds the public architecture, result comparison, and observed-history charts from source data without training any neural model.
 
 ## What can and cannot be reproduced from this release alone
 
@@ -87,7 +87,8 @@ The original PDF is included unchanged and has two pages including references. L
 |---|---|
 | Architecture / gradient / serialization checks | Yes, with dependencies |
 | Rebuild comparison figures from recorded metrics | Yes |
-| Read and rebuild the original report | Yes; LaTeX needed only to rebuild |
+| Read the current report | Yes |
+| Rebuild the earlier submission draft | Yes; LaTeX required |
 | Train H3B from scratch | Requires the external dataset and compute |
 | Re-evaluate the exact historical H3B/H6A models | Requires original checkpoints, dataset, and compatible environment |
 | Recover missing training-history rows | No |

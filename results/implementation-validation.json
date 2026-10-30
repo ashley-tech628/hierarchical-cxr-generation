@@ -28,5 +28,8 @@
   "training_rerun": false,
   "fid_kid_is_recomputed": false,
   "clinical_or_held_out_test_validation": false,
-  "scope": "Synthetic/random-weight implementation checks only. Historical image-quality metrics are report-backed and were not independently reproduced."
+  "scope": "Synthetic/random-weight implementation checks only. Historical image-quality metrics are report-backed and were not independently reproduced.",
+  "current_report": "docs/report/ECE_285_HW1.pdf",
+  "current_report_pages": 3,
+  "current_report_main_text_pages": 2
 }

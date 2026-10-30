@@ -4,7 +4,7 @@
 
 From-scratch PyTorch research implementation by **Xinying (Ashley) Liu**, developed for **ECE 285 at UC San Diego**. The project investigates a central tension in generative modeling: improving an input-conditioned reconstruction does not necessarily improve images drawn independently from the prior.
 
-[Technical report (PDF)](docs/report/HW1_CXR_VAE_Report.pdf) · [Architecture and objectives](docs/architecture.md) · [Experimental protocol](docs/experiments.md) · [Reproduction guide](docs/reproduce.md) · [Portfolio case study](https://ashley-tech628.github.io/projects/hierarchical-cxr-generation/)
+[Technical report (PDF)](docs/report/ECE_285_HW1.pdf) · [Architecture and objectives](docs/architecture.md) · [Experimental protocol](docs/experiments.md) · [Reproduction guide](docs/reproduce.md) · [Portfolio case study](https://ashley-tech628.github.io/projects/hierarchical-cxr-generation/)
 
 ![Hierarchical VAE architecture: distinct posterior reconstruction and prior generation paths](docs/figures/architecture.svg)
 
@@ -18,17 +18,19 @@ From-scratch PyTorch research implementation by **Xinying (Ashley) Liu**, develo
 
 ## Results at a glance
 
-These are **historical results preserved in the supplied report and experiment summaries**. Packaging this repository does not rerun the 50-epoch training or regenerate the reported metrics. The provided test directory was not evaluated in the report.
+These are **historical results preserved in the current user-supplied report**. Packaging this repository does not rerun the 50-epoch training or regenerate the reported metrics. The provided test directory was not evaluated in the report.
 
 ### Validation reconstruction
 
 | Experiment | Representation / objective | Pixel MSE ↓ | SSIM ↑ |
 |---|---|---:|---:|
-| H1 | Hierarchical, `16 × 16` local grid; MSE + KL | 0.003621 | 0.68977 |
-| H2 | `16 × 16` local grid; MSE + SSIM + Sobel + KL | ≈0.00352 | ≈0.6971 |
-| **H3B** | **`32 × 32` local grid; hybrid loss; local KL × 0.35** | **0.00247** | **0.7542** |
+| H1 | Hierarchical, `16 × 16` local grid; MSE + KL | 0.003621 | 0.6898 |
+| H2 | `16 × 16` local grid; MSE + SSIM + Sobel + KL | 0.003520 | 0.6971 |
+| H3A | `32 × 32` local grid; default local KL weight | 0.003778 | 0.6926 |
+| **H3B** | **`32 × 32`; hybrid loss; local KL × 0.35** | **0.002467** | **0.7542** |
+| H3C | H3B + multi-scale high-pass reconstruction penalty | 0.002469 | **0.7547** |
 
-H3B reduces recorded reconstruction MSE by approximately **31.8% relative to H1** and increases SSIM by **0.06443**. Multiple architecture and objective changes separate H1 and H3B; this is an experiment progression, not an isolated causal ablation of spatial resolution.
+Table 1 of the current report records **31.9% lower reconstruction MSE for H3B relative to H1**. H3C has the highest listed SSIM but slightly higher MSE than H3B. H3A demonstrates that enlarging the spatial grid alone does not improve the reported reconstruction result; architecture and regularization must be considered together. The H1→H3B progression changes multiple settings and is not a single-variable ablation.
 
 ### Matched validation generation
 
@@ -39,13 +41,17 @@ H3B reduces recorded reconstruction MSE by approximately **31.8% relative to H1*
 
 **Protocol:** 522 real validation images and 522 independent prior samples; seed 2026. H6A's evaluator scores both models in one routine, resets separate global/local latent RNG streams for each model, and matches KID subset sampling. H6A lowers recorded FID by **6.38 points (approximately 2.9%)**. No repeated-seed uncertainty or statistical significance is established by these summary values.
 
-![Reconstruction and matched generation results, with independent metric axes](docs/figures/results.png)
+![Five reconstruction variants and matched generation results, with independent metric axes](docs/figures/results.png)
 
-### Original generated examples
+### Posterior reconstruction and independent generation
 
-![Original experiment figure: unpaired real validation images and matched-prior H3B/H6A samples](docs/report/figs/report_generation_examples.png)
+![Real inputs, H3B posterior reconstruction, and H6A posterior reconstruction from current report Figure 3](docs/figures/posterior-reconstructions.png)
 
-The real examples in the top row are **unpaired references**. The generated rows use matched latent draws across H3B and H6A; they are not reconstructions of the real row. Samples recover coarse chest structure, while fine ribs and pulmonary markings remain smooth.
+**Input-conditioned reconstruction:** columns align the same real input with its H3B/H6A reconstruction. These images evaluate the posterior path.
+
+![Matched H3B and H6A independent prior samples from current report Figure 3](docs/figures/prior-samples.png)
+
+**Independent generation:** the two rows use paired latent draws across H3B/H6A. They are not image-to-image pairs with the real inputs above. Coarse anatomy is recognizable, while ribs and pulmonary texture remain oversmoothed.
 
 ## Model design
 
@@ -88,6 +94,8 @@ This is a **hybrid reconstruction-regularized VAE objective**, not an exact nega
 H6A restores H3B and freezes all encoder and prior parameters. A small patch discriminator with spectral-normalized convolutions receives real images, posterior reconstructions, and independent prior samples. Discriminator and decoder updates use separate optimizers and gradient boundaries.
 
 The decoder receives reconstruction loss plus a weak adversarial term. Its coefficient is calculated from reconstruction/adversarial gradient norms at the last decoder convolution, targeting a ratio of 0.05 and capped at 20. The adaptation uses decoder/discriminator learning rates `1e-5 / 5e-5`, batch size 8, and a 15-epoch schedule. This stage is explicitly a **VAE + adversarial refinement experiment**. A reconstruction-only discriminator option, H6R, is implemented without claiming an unprovided quantitative result.
+
+![H6A frozen latent paths, decoder and discriminator gradient boundaries](docs/figures/refinement.svg)
 
 ## Data and evaluation discipline
 
@@ -142,7 +150,7 @@ docs/
   architecture.md           Tensor paths, objective, freezing and optimization
   experiments.md            Protocol, metrics, evidence provenance and limitations
   reproduce.md              Commands, checkpoint layout and verification boundaries
-  report/                   Original two-page report, LaTeX and figure assets
+  report/                   Current report plus preserved earlier submission sources
   figures/                  Architecture and figures regenerated from recorded values
 results/                    Recorded metric summary and 36 observed history rows
 tests/                      Dataset-free implementation checks
@@ -151,7 +159,7 @@ tools/build_figures.py      Regenerate figures from the preserved data
 
 ## Evidence available in this release
 
-The two-page course report, LaTeX source, original figures, four experiment scripts, and **36 observed history rows from a 50-epoch H3B run** are included. Missing history epochs are not interpolated in the new plots. Original trained weights and complete raw notebook/ZIP logs are not in the supplied source package and are not included here. Quantitative results are therefore report-backed historical measurements, not independently remeasured release benchmarks.
+The current report (two main-text pages plus one reference page), its extracted figures, four experiment scripts, and **36 observed history rows from a 50-epoch H3B run** are included. The earlier two-page submission PDF and its LaTeX source remain in `docs/report/` as historical artifacts; the supplied current PDF has no accompanying LaTeX source. Missing history epochs are not interpolated in the new plots. Original trained weights and complete raw notebook/ZIP logs are not in the supplied source package and are not included here. Quantitative results are therefore report-backed historical measurements, not independently remeasured release benchmarks.
 
 [Implementation validation](results/implementation-validation.json) records the dataset-free checks performed for this release. Random-weight synthetic checks establish code behavior only; they do not validate the historical image-quality results.
 

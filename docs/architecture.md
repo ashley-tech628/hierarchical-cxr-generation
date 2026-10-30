@@ -34,7 +34,7 @@ H3B optimizes batch-averaged summed image MSE plus `48 × (1 − SSIM)`, `32 × 
 
 Diagonal-Gaussian KL is computed analytically in FP32. Structural terms also operate in FP32. Validation reports both the composite objective and per-pixel MSE; these have different units. Checkpoint selection fixes KL beta at 1 so early warm-up checkpoints are not favored simply because their penalty is smaller.
 
-H3C adds a multi-scale high-pass reconstruction penalty, implemented at image scales 128/64/32. It is exploratory code; a quantitative H3C result is not available in this release.
+H3C adds a multi-scale high-pass reconstruction penalty, implemented at image scales 128/64/32. The current report records H3C MSE 0.002469 and SSIM 0.7547, compared with H3B 0.002467 / 0.7542. The small SSIM increase and slightly higher MSE do not establish a generation improvement.
 
 ## Restricted adversarial adaptation
 

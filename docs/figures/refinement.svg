@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="700" viewBox="0 0 1600 700" role="img" aria-label="H6A · Restricted adversarial decoder refinement">
+<defs>
+<marker id="blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#3156a6"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#287b73"/></marker>
+<marker id="orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#a96026"/></marker>
+<marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#202a38"/></marker>
+</defs>
+<rect width="1600" height="700" fill="white"/>
+<text x="55" y="60" font-family="Arial,Helvetica,sans-serif" font-size="34" fill="#202a38" font-weight="700" text-anchor="start">H6A · Restricted adversarial decoder refinement</text>
+<text x="55" y="99" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#5f6b7a" font-weight="400" text-anchor="start">Frozen latent distributions · trainable decoder · spectral-normalized patch critic · separate optimizer steps</text>
+<rect x="60" y="190" width="330" height="170" rx="8" fill="#f2f5fb" stroke="#3156a6" stroke-width="1.6"/>
+<text x="80" y="226" font-family="Arial,Helvetica,sans-serif" font-size="22.92490118577075" fill="#3156a6" font-weight="700" text-anchor="start">Frozen H3B latent paths</text>
+<text x="80" y="263" font-family="Arial,Helvetica,sans-serif" font-size="20.27972027972028" fill="#202a38" font-weight="400" text-anchor="start">Posterior: q(z_g, z_ℓ | x)</text>
+<text x="80" y="292" font-family="Arial,Helvetica,sans-serif" font-size="21.09090909090909" fill="#202a38" font-weight="400" text-anchor="start">Prior: p(z_g)p(z_ℓ | z_g)</text>
+<text x="80" y="321" font-family="Arial,Helvetica,sans-serif" font-size="18.18181818181818" fill="#202a38" font-weight="400" text-anchor="start">Detach sampled latent tensors</text>
+<rect x="480" y="190" width="320" height="170" rx="8" fill="#fffaf5" stroke="#a96026" stroke-width="1.6"/>
+<text x="500" y="226" font-family="Arial,Helvetica,sans-serif" font-size="25" fill="#a96026" font-weight="700" text-anchor="start">Trainable decoder G</text>
+<text x="500" y="263" font-family="Arial,Helvetica,sans-serif" font-size="15.909090909090908" fill="#202a38" font-weight="400" text-anchor="start">Posterior reconstruction x̂_post</text>
+<text x="500" y="292" font-family="Arial,Helvetica,sans-serif" font-size="15.426997245179061" fill="#202a38" font-weight="400" text-anchor="start">Independent prior sample x̂_prior</text>
+<text x="500" y="343" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#5f6b7a" font-weight="400" text-anchor="start">EMA 0.995 · η_G = 10⁻⁵</text>
+<rect x="920" y="190" width="300" height="170" rx="8" fill="#f7f9fc" stroke="#202a38" stroke-width="1.6"/>
+<text x="940" y="226" font-family="Arial,Helvetica,sans-serif" font-size="22.51082251082251" fill="#202a38" font-weight="700" text-anchor="start">Patch discriminator D</text>
+<text x="940" y="263" font-family="Arial,Helvetica,sans-serif" font-size="18.909090909090907" fill="#202a38" font-weight="400" text-anchor="start">Spectral-normalized convs</text>
+<text x="940" y="292" font-family="Arial,Helvetica,sans-serif" font-size="16.88311688311688" fill="#202a38" font-weight="400" text-anchor="start">Real / reconstructed / prior</text>
+<text x="940" y="321" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#202a38" font-weight="400" text-anchor="start">Hinge logits</text>
+<rect x="1300" y="190" width="240" height="170" rx="8" fill="#f7f9fc" stroke="#202a38" stroke-width="1.6"/>
+<text x="1320" y="226" font-family="Arial,Helvetica,sans-serif" font-size="25" fill="#202a38" font-weight="700" text-anchor="start">Real images x</text>
+<text x="1320" y="263" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#202a38" font-weight="400" text-anchor="start">128 × 128</text>
+<text x="1320" y="292" font-family="Arial,Helvetica,sans-serif" font-size="17.316017316017316" fill="#202a38" font-weight="400" text-anchor="start">Brightness / contrast</text>
+<path d="M390,270 L480,270" fill="none" stroke="#3156a6" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#blue)"/>
+<path d="M800,250 L920,250" fill="none" stroke="#a96026" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#orange)"/>
+<text x="860" y="218" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#5f6b7a" font-weight="400" text-anchor="middle">D step:</text>
+<text x="860" y="240" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#5f6b7a" font-weight="400" text-anchor="middle">detach G</text>
+<path d="M1300,270 L1220,270" fill="none" stroke="#202a38" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ink)"/>
+<path d="M1060,360 L1060,417 L640,417 L640,360" fill="none" stroke="#a96026" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="9 6" marker-end="url(#orange)"/>
+<text x="685" y="451" font-family="Arial,Helvetica,sans-serif" font-size="21" fill="#a96026" font-weight="400" text-anchor="start">G step: freeze D parameters; backpropagate through D to generated pixels</text>
+<rect x="60" y="505" width="1480" height="145" rx="8" fill="#f7f9fc" stroke="#202a38" stroke-width="1.6"/>
+<text x="80" y="541" font-family="Arial,Helvetica,sans-serif" font-size="25" fill="#202a38" font-weight="700" text-anchor="start">Adaptive decoder objective</text>
+<text x="80" y="578" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#202a38" font-weight="400" text-anchor="start">L_G = L_rec + λ_t L_adv</text>
+<text x="80" y="607" font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#202a38" font-weight="400" text-anchor="start">λ_t = clip(0.05 ‖∇W L_rec‖ / (‖∇W L_adv‖ + ε), 0, 20)</text>
+</svg>
